@@ -200,25 +200,59 @@ function readAngle(objText: string, field: string): Ang | undefined {
   return { p: parseFloat(m[1]), y: parseFloat(m[2]), r: parseFloat(m[3]) };
 }
 
-export function serializeEMVAuto(auto: AutoItem[]): string {
-  const lines: string[] = [];
-  lines.push('EMV.Auto = {');
+export function serializeEMVAuto(auto: AutoItem[], selections?: Selection[]): string {
+  const lines: string[] = []
+  lines.push('EMV.Auto = {')
+
+  // Build usage map: auto index -> selection name -> set of option(sub-group) names
+  const usage = new Map<number, Map<string, Set<string>>>()
+  if (selections && selections.length) {
+    selections.forEach((sel) => {
+      const selName = sel.Name || '(unnamed)'
+      sel.Options.forEach((opt) => {
+        opt.Auto.forEach((idx) => {
+          const bySel = usage.get(idx) ?? new Map<string, Set<string>>()
+          const optSet = bySel.get(selName) ?? new Set<string>()
+          optSet.add(opt.Name || '(unnamed option)')
+          bySel.set(selName, optSet)
+          usage.set(idx, bySel)
+        })
+      })
+    })
+  }
+
   auto.forEach((a, i) => {
-    const fields: string[] = [];
-    if (a.ID) fields.push(`ID = "${a.ID}"`);
-    if (a.Scale !== undefined) fields.push(`Scale = ${a.Scale}`);
+    const fields: string[] = []
+    if (a.ID) fields.push(`ID = "${a.ID}"`)
+    if (a.Scale !== undefined) fields.push(`Scale = ${a.Scale}`)
     if (a.Pos)
-      fields.push(`Pos = Vector(${fmt(a.Pos.x)}, ${fmt(a.Pos.y)}, ${fmt(a.Pos.z)})`);
+      fields.push(`Pos = Vector(${fmt(a.Pos.x)}, ${fmt(a.Pos.y)}, ${fmt(a.Pos.z)})`)
     if (a.Ang)
-      fields.push(`Ang = Angle(${fmt(a.Ang.p)}, ${fmt(a.Ang.y)}, ${fmt(a.Ang.r)})`);
-    if (a.Color1) fields.push(`Color1 = ${serializeColor(a.Color1)}`);
-    if (a.Color2) fields.push(`Color2 = ${serializeColor(a.Color2)}`);
-    if (a.Phase) fields.push(`Phase = "${a.Phase}"`);
-    const comma = i < auto.length - 1 ? ',' : '';
-    lines.push(`  { ${fields.join(', ')} }${comma}`);
-  });
-  lines.push('}');
-  return lines.join('\n');
+      fields.push(`Ang = Angle(${fmt(a.Ang.p)}, ${fmt(a.Ang.y)}, ${fmt(a.Ang.r)})`)
+    if (a.Color1) fields.push(`Color1 = ${serializeColor(a.Color1)}`)
+    if (a.Color2) fields.push(`Color2 = ${serializeColor(a.Color2)}`)
+    if (a.Phase) fields.push(`Phase = "${a.Phase}"`)
+
+    const comma = i < auto.length - 1 ? ',' : ''
+
+    // Optional usage comment line before the item
+    const usedBy = usage.get(a.index)
+    if (usedBy && usedBy.size) {
+      // Build label: Group (Option1, Option2); Group2 (OptionA)
+      const parts: string[] = []
+      Array.from(usedBy.entries()).forEach(([group, opts]) => {
+        const optList = Array.from(opts.values()).join(', ')
+        parts.push(`${group} (${optList})`)
+      })
+      lines.push(`  -- Used in selections: ${parts.join('; ')}`)
+    } else if (selections) {
+      lines.push('  -- Not referenced in any selection')
+    }
+
+    lines.push(`  { ${fields.join(', ')} }${comma}`)
+  })
+  lines.push('}')
+  return lines.join('\n')
 }
 
 function fmt(n: number): string {
