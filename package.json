@@ -10,7 +10,18 @@
     "preview": "vite preview",
     "test:parse": "tsx scripts/parseExample.ts",
     "test:removal": "tsx scripts/testRemoval.ts",
-    "test:serialize-usage": "tsx scripts/testSerializeUsage.ts"
+    "test:colors": "tsx scripts/testColors.ts",
+    "test:serialize-usage": "tsx scripts/testSerializeUsage.ts",
+    "test:duplicate": "tsx scripts/testDuplicate.ts",
+    "test:parse-pi": "tsx scripts/testParsePI.ts",
+    "test:parse-pi-meta": "tsx scripts/testParsePIMeta.ts",
+    "test:roundtrip-pi": "tsx scripts/testRoundTripPI.ts",
+    "test:roundtrip-emv": "tsx scripts/testRoundTripEMV.ts",
+    "test:parse-lamps": "tsx scripts/testParseLamps.ts",
+    "test:parse-sequences": "tsx scripts/testParseSequences.ts"
+    ,
+    "test:roundtrip-lamps": "tsx scripts/testRoundTripLamps.ts",
+    "test:roundtrip-sequences": "tsx scripts/testRoundTripSequences.ts"
   },
   "dependencies": {
     "react": "^19.2.0",

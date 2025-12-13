@@ -1,0 +1,62 @@
+html {
+  --selector: #0061e0;
+
+  /** form colors **/
+  --form-color-selector: hsl(214, 100%, 44%);
+  --form-color-invalid: hsl(0, 100%, 50%);
+  --form-color-invalid-hover: hsla(0, 100%, 32%, 0.35);
+  --form-color-invalid-hold: hsl(39, 100%, 50%);
+  --form-color-valid-hold: hsl(120, 100%, 38%);
+  --form-color-valid: hsl(120, 100%, 25%);
+
+  --form-color-selector-opac: hsl(214, 100%, 44%, 0.25);
+  --form-color-invalid-opac: hsl(0, 100%, 50%, 0.25);
+  --form-color-invalid-hold-opac: hsl(39, 100%, 50%, 0.25);
+  --form-color-valid-hold-opac: hsl(120, 100%, 38%, 0.25);
+  --form-color-valid-opac: hsl(120, 100%, 25%, 0.25);
+}
+
+html[data-theme="system"],
+html[data-theme="light"] {
+  --text: #000000;
+  --text-alt: #333333;
+  --background: #f2f2f2;
+  --primary: #d3d3d3;
+  --secondary: #c3c3c3;
+  --accent: #0061e0;
+  --accent-hover: #003d92;
+  --accent-text: #ffffff;
+  --text-inverse: #ffffff;
+  --account-backdrop-filter: brightness(0.85) blur(0.125rem);
+}
+
+html[data-theme="dark"] {
+  --text: #ffffff;
+  --text-alt: #cccccc;
+  --background: #0d0d0d;
+  --primary: #2a2a2a;
+  --secondary: #484848;
+  --accent: #0061e0;
+  --accent-hover: #003d92;
+  --accent-text: #ffffff;
+  --text-inverse: #000000;
+  --account-backdrop-filter: brightness(0.5) blur(0.125rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme="system"] {
+    --text: #ffffff;
+    --text-alt: #cccccc;
+    --background: #0d0d0d;
+    --primary: #2a2a2a;
+    --secondary: #484848;
+    --accent: #0061e0;
+    --text-inverse: #000000;
+    --account-backdrop-filter: brightness(0.5) blur(0.125rem);
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+}
