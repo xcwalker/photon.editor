@@ -1,4 +1,4 @@
-import { parseLuaForEMV, serializeEMVSequences } from '../src/luaParser'
+import { parseLuaForEMV, serializeEMVSequences } from '../src/functions/luaParser'
 
 const lua = `
 EMV.Sequences = {

@@ -1,5 +1,5 @@
-import { removeAutoAndAdjust } from '../src/autoUtils'
-import type { ParsedEMV } from '../src/luaParser'
+import { removeAutoAndAdjust } from '../src/functions/autoUtils'
+import type { ParsedEMV } from '../src/functions/luaParser'
 
 function assert(condition: boolean, message: string) {
   if (!condition) throw new Error(`Assertion failed: ${message}`)

@@ -1,0 +1,78 @@
+*,
+*::after,
+*::before {
+  /* sizing */
+  box-sizing: border-box;
+
+  /* font */
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  /* sizing */
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+
+  /* background */
+  background-color: var(--background);
+  color: var(--text);
+
+  /* transition */
+  transition: var(--transition-background_color-600),
+    var(--transition-color-600);
+}
+
+@media print {
+  body {
+    background-color: white;
+    color: black;
+  }
+}
+
+body.oled {
+  background-color: black;
+  color: white;
+}
+
+body.noscroll {
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#root {
+  /* sizing */
+  min-height: 100vh;
+  width: 100%;
+
+  /* flex */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#root > main {
+  min-height: 85vh;
+  padding-inline: 1rem;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+}
+
+.material-symbols-outlined.active {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  z-index: 1;
+}

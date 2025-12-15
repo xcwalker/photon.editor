@@ -1,0 +1,70 @@
+.container {
+  /* sizing */
+  padding: 2rem 2rem;
+
+  /* styling */
+  background-color: var(--primary);
+}
+
+.list {
+  /* spacing */
+  margin: 0;
+  padding: 0;
+
+  /* flex */
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.list li {
+  list-style: none;
+}
+
+.social {
+  /* position */
+  position: relative;
+  z-index: 0;
+
+  /* sizing */
+  --_width: 50px;
+  width: var(--_width);
+  height: var(--_width);
+  padding: 0.75rem;
+  flex-shrink: 0;
+
+  /* styling */
+  background-color: var(--primary);
+  color: var(--text);
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.social svg {
+  /* position */
+  position: static;
+
+  /* sizing */
+  --_size: 100%;
+  width: var(--_size);
+  height: var(--_size);
+  padding: 0;
+}
+
+.social :global(.background) {
+  /* position */
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  
+  /* hiding */
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.social:hover :global(.background),
+.social:focus-visible :global(.background) {
+  opacity: 1;
+}

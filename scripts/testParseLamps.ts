@@ -1,4 +1,4 @@
-import { parseLuaForEMV, serializeEMVLamps } from '../src/luaParser'
+import { parseLuaForEMV, serializeEMVLamps } from '../src/functions/luaParser'
 
 const lua = `
 EMV.Lamps = {

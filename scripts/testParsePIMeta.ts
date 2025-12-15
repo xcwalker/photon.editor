@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { parseLuaForEMV } from '../src/luaParser'
+import { parseLuaForEMV } from '../src/functions/luaParser'
 
 function assert(condition: unknown, message: string) {
   if (!condition) throw new Error(`Assertion failed: ${message}`)

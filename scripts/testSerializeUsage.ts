@@ -1,4 +1,4 @@
-import { serializeEMVAuto, type AutoItem, type Selection } from '../src/luaParser'
+import { serializeEMVAuto, type AutoItem, type Selection } from '../src/functions/luaParser'
 
 function assert(cond: boolean, msg: string) {
   if (!cond) throw new Error('Assertion failed: ' + msg)

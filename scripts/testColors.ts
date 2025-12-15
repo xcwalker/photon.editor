@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import { parseLuaForEMV, serializeEMVAuto } from '../src/luaParser'
+import { parseLuaForEMV, serializeEMVAuto } from '../src/functions/luaParser'
 
 function assert(condition: boolean, message: string) {
   if (!condition) {

@@ -1,4 +1,4 @@
-import { parseLuaForEMV, serializeEMVLamps, serializeEMVLampsMeta } from '../src/luaParser'
+import { parseLuaForEMV, serializeEMVLamps, serializeEMVLampsMeta } from '../src/functions/luaParser'
 
 // Array-style Lamps round-trip
 const luaArray = `

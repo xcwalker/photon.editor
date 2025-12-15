@@ -1,0 +1,32 @@
+.socialIcon {
+  fill: currentColor;
+  color: inherit;
+}
+
+.twitter {
+  background-color: #00aade;
+}
+
+.youtube {
+  background-color: #ed1f24;
+}
+
+.discord {
+  background-color: #5865f2;
+}
+
+.twitch {
+  background-color: #6441a4;
+}
+
+@media (prefers-color-scheme: light) {
+  .tiktok {
+    background-color: #ffffff;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .tiktok {
+    background-color: #000000;
+  }
+}

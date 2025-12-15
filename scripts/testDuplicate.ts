@@ -8,7 +8,7 @@
 
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { parseLuaForEMV, serializeEMVAuto, serializeEMVSelections, type AutoItem } from '../src/luaParser'
+import { parseLuaForEMV, serializeEMVAuto, serializeEMVSelections, type AutoItem } from '../src/functions/luaParser'
 
 function assert(cond: boolean, msg: string) {
   if (!cond) {

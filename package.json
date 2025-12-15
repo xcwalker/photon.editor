@@ -18,15 +18,16 @@
     "test:roundtrip-pi": "tsx scripts/testRoundTripPI.ts",
     "test:roundtrip-emv": "tsx scripts/testRoundTripEMV.ts",
     "test:parse-lamps": "tsx scripts/testParseLamps.ts",
-    "test:parse-sequences": "tsx scripts/testParseSequences.ts"
-    ,
+    "test:parse-sequences": "tsx scripts/testParseSequences.ts",
     "test:roundtrip-lamps": "tsx scripts/testRoundTripLamps.ts",
     "test:roundtrip-sequences": "tsx scripts/testRoundTripSequences.ts"
   },
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-hot-toast": "^2.6.0"
+    "react-hot-toast": "^2.6.0",
+    "react-router-dom": "^7.10.1",
+    "vite-tsconfig-paths": "^6.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

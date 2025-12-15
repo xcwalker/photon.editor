@@ -1,0 +1,44 @@
+header.header {
+  /* position */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  /* layout */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 60px;
+
+  /* styling */
+  background-color: var(--primary);
+  color: var(--text);
+  border-bottom: 2px solid var(--accent);
+}
+
+header.header .titleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+header.header .title {
+  /* spacing */
+  margin: 0;
+  margin-bottom: -0.25rem;
+
+  /* text */
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+header.header .subtitle {
+  /* spacing */
+  margin: 0;
+
+  /* text */
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-alt);
+}

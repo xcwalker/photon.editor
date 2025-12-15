@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import Dropdown from "./Dropdown";
-import { Toaster, toast } from "react-hot-toast";
+import Dropdown from "../components/Dropdown";
+import { toast } from "react-hot-toast";
 import {
   type AutoItem,
   type ParsedEMV,
@@ -13,12 +13,12 @@ import {
   serializeEMVLamps,
   serializeEMVSequences,
   serializeEMVLampsMeta,
-} from "./luaParser";
-import { removeAutoAndAdjust } from "./autoUtils";
+} from "../functions/luaParser";
+import { removeAutoAndAdjust } from "../functions/autoUtils";
 
-import "./styles/styling.css";
+import "../styles/styling.css";
 
-function App() {
+export default function Editor() {
   const [luaText, setLuaText] = useState<string>("");
   const [parsed, setParsed] = useState<ParsedEMV>({
     auto: [],
@@ -29,7 +29,6 @@ function App() {
   const [includeAutoUsageComments, setIncludeAutoUsageComments] =
     useState<boolean>(true);
   const [includeNotes, setIncludeNotes] = useState<boolean>(false);
-  const [theme, setTheme] = useState<"system" | "light" | "dark">("system");
   const [confirmState, setConfirmState] = useState<{
     open: boolean;
     title?: string;
@@ -38,10 +37,7 @@ function App() {
     cancelText?: string;
     onConfirm?: () => void;
   }>({ open: false });
-  // Apply theme to html[data-theme]
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-  }, [theme]);
+
   // transient highlight management for validation quick-jumps
   useEffect(() => {
     const highlightTarget = (id: string) => {
@@ -461,28 +457,12 @@ function App() {
     <div
       style={{
         fontFamily: "system-ui, sans-serif",
-        padding: 16,
         display: "grid",
         gap: 16,
         background: "var(--background)",
         color: "var(--text)",
       }}
     >
-      <h1 style={{ margin: 0 }}>Photon EMV Editor</h1>
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <label style={{ fontSize: 12, color: "var(--text-alt)" }}>Theme</label>
-        <select
-          value={theme}
-          onChange={(e) =>
-            setTheme(e.target.value as "system" | "light" | "dark")
-          }
-        >
-          <option value="system">System</option>
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
-      </div>
-      <Toaster position="bottom-right" />
       <ConfirmDialog
         open={confirmState.open}
         title={confirmState.title}
@@ -859,7 +839,7 @@ function App() {
                 style={{
                   display: "grid",
                   gap: 8,
-                  gridTemplateColumns: "repeat(auto-fit, minmax(500px, 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
                 }}
               >
                 {group.indices.length === 0 && (
@@ -901,7 +881,7 @@ function App() {
             style={{
               display: "grid",
               gap: 8,
-              gridTemplateColumns: "repeat(auto-fit, minmax(500px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
             }}
           >
             {parsed.auto.map((a) => (
@@ -990,7 +970,7 @@ function App() {
       </SectionWrapper>
 
       {/* Dedicated Lamps edit panel */}
-      <SectionWrapper title="EMV.Lamps" defaultOpen>
+      <SectionWrapper title="EMV.Lamps">
         <section style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <div style={{ fontSize: 12, color: "var(--text-alt)" }}>
@@ -1365,7 +1345,7 @@ function App() {
       </SectionWrapper>
 
       {/* Dedicated Sequences edit panel */}
-      <SectionWrapper title="EMV.Sequences" defaultOpen>
+      <SectionWrapper title="EMV.Sequences">
         <section style={{ display: "grid", gap: 12 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <div style={{ fontSize: 12, color: "var(--text-alt)" }}>
@@ -2158,7 +2138,7 @@ function App() {
       </SectionWrapper>
 
       {/* Consolidated output section at the bottom */}
-      <SectionWrapper title="Lua Output" defaultOpen>
+      <SectionWrapper title="Lua Output">
         <section style={{ display: "grid", gap: 12 }}>
           {/* Combined output */}
           <div style={{ display: "grid", gap: 8 }}>
@@ -2701,10 +2681,10 @@ function AutoItemEditor({
           alignItems: "center",
         }}
       >
-        <div style={{ fontWeight: 500 }}>
-          #{item.index} – {item.ID}
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <div>
+          <div style={{ fontWeight: 500 }}>
+            #{item.index} – {item.ID}
+          </div>
           <div
             style={{ fontSize: 12, color: referenceCount ? "#666" : "#b00020" }}
           >
@@ -2714,6 +2694,8 @@ function AutoItemEditor({
                 }`
               : "Warning: Not referenced in any selection"}
           </div>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           {onDuplicate && (
             <Button variant="secondary" onClick={() => onDuplicate?.()}>
               Duplicate
@@ -2872,8 +2854,6 @@ function AutoItemEditor({
   );
 }
 
-export default App;
-
 type ButtonProps = {
   variant?: "primary" | "secondary" | "danger";
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -2985,6 +2965,7 @@ type InputProps = {
   invalid?: boolean;
   width?: number | string;
   autoFocus?: boolean;
+  minWidth?: number | string;
 };
 
 function Input({
@@ -2996,6 +2977,7 @@ function Input({
   invalid = false,
   width,
   autoFocus,
+  minWidth,
 }: InputProps) {
   const base: React.CSSProperties = {
     appearance: "none",
@@ -3009,6 +2991,7 @@ function Input({
     width: width ?? undefined,
     transition:
       "border-color 120ms ease, background-color 120ms ease, box-shadow 120ms ease",
+    minWidth: minWidth ? minWidth : 0,
   };
   const invalidStyle: React.CSSProperties = invalid
     ? {

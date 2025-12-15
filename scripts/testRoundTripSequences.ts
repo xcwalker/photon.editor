@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import { parseLuaForEMV, serializeEMVSequences, type Sequence } from '../src/luaParser'
+import { parseLuaForEMV, serializeEMVSequences, type Sequence } from '../src/functions/luaParser'
 
 function sequencesKey(seq: Sequence) {
   return {
