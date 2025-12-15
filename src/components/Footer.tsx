@@ -20,7 +20,7 @@ export default function Footer() {
       <Socials />
       <div className={css.container}>
         <div className={css.column}>
-          <Logos.xcwalkeruk className={css.logo} />
+          <Logos.xcwalker className={css.logo} />
           <span className={css.span}>
             Built and maintained by{" "}
             <a href="https://xcwalker.dev">xcwalker.dev</a>
